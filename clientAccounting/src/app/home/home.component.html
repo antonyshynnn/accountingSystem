@@ -1,0 +1,292 @@
+<body>
+<!-- HEADER -->
+
+<header class="without_bootstrap_header">
+  <div class="container">
+    <div class="header__inner">
+      <div class="header__logo">
+        <a class="nav__link__logo" href="#">Inventory</a>
+      </div>
+
+<!--      <menu class="nav">-->
+<!--        <a class="nav__link1" (click)="scroll(intro)">Hello</a>-->
+<!--        <a class="nav__link" href="#">About</a>-->
+<!--        <a class="nav__link" href="#">Services</a>-->
+<!--        <a class="nav__link" href="#">Portfolio</a>-->
+<!--        <a class="nav__link" href="#">Team</a>-->
+<!--        <a class="nav__link" href="#">Blog</a>-->
+<!--        <a class="nav__link" href="#">Contact</a>-->
+<!--      </menu>-->
+
+      <menu class="nav">
+        <a (click)="scroll(about)" class="nav__link">About</a>
+        <a (click)="scroll(details)" class="nav__link">Details</a>
+        <a (click)="scroll(featured)" class="nav__link">News</a>
+        <a (click)="scroll(technology)" class="nav__link">Technology</a>
+        <a (click)="scroll(computers)" class="nav__link">Computers</a>
+        <a (click)="logout()" class="nav__link">Logout</a>
+        <a *ngIf="isAdmin" class="nav__link" href="http://localhost:4200/admin">Admin Panel</a>
+      </menu>
+
+    </div>
+  </div>
+</header>
+
+<!-- INTRO///////// -->
+
+
+<div class="intro" #intro>
+  <div class="container">
+    <div class="intro__inner__inner">
+      <div class="intro__inner">
+        <h1 class="intro__title">
+          Device Inventory System
+        </h1>
+        <div class="intro__subtitle">Lviv Polytechnic National University</div>
+      </div>
+
+      <div class="intro__down">
+        <a class="icon-down-open icon-down-open--red" href="site.ua"></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+
+<div class="about" #about>
+  <div class="container">
+    <div class="about__inner">
+      <div class="content">
+        <div class="about__title"><h1>Lviv Polytechnic</h1></div>
+        <p class="about__subtitle">Lviv Polytechnic is the leader among Ukrainian universities according to the results of THE Impact 2022 rankings
+          Times Higher Education has published the fourth edition of the ranking, which assesses universities against the United Nations’ Sustainable Development Goals.
+          For the second time in a row, Lviv Polytechnic is the leader in the overall ranking of Ukrainian higher education institutions.
+          Our University presented the results according to all UN Sustainable Development Goals and maintained its position in the category of 401-600 best universities in the world.</p>
+        <button class="btn"><a class="nav__link2" href="https://lpnu.ua/en/news/lviv-polytechnic-leader-among-ukrainian-universities-according-results-impact-2022-rankings">Read more</a></button>
+      </div>
+      <div class="photo">
+        <img src="../../assets/pcAbout.png" alt='123'>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS -->
+<div class="details" #details>
+  <div class="container">
+    <div class="details__inner">
+      <div class="details__title">Details about university</div>
+      <div class="details__subtitle">
+        Follow us in social media!
+      </div>
+
+      <div class="icons">
+
+        <div class="circle">
+          <a class="icon-heart-empty" href="https://www.facebook.com/LvivPolytechnicNationalUniversity/">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" role="img" aria-labelledby="facebook-icon">-->
+<!--              <title id="facebook-icon">Facebook</title>-->
+<!--              <path fill="#3C599A" d="M18.896 20.12h1.758v-1.708c0-.753.02-1.915.566-2.635.576-.762 1.368-1.28 2.73-1.28 2.218 0 3.15.316 3.15.316l-.438 2.605s-.73-.212-1.417-.212c-.684 0-1.296.245-1.296.93v1.985h2.803l-.194 2.547h-2.61v8.84h-3.297v-8.84h-1.758V20.12z"/>-->
+<!--&lt;!&ndash;              <path class="button&#45;&#45;svg__border" fill="#E5E5E5" d="M23 3c11.027 0 20 8.972 20 20 0 11.027-8.973 20-20 20-11.028 0-20-8.973-20-20C3 11.972 11.972 3 23 3m0-2C10.85 1 1 10.85 1 23s9.85 22 22 22 22-9.85 22-22S35.15 1 23 1z"/>&ndash;&gt;-->
+<!--            </svg>-->
+            <i class="ti-facebook"></i>
+          </a>
+        </div>
+
+        <div class="circle">
+          <a class="icon-attach" href="https://www.instagram.com/lpnu_official/">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" role="img" aria-labelledby="instagram-icon">-->
+<!--              <title id="instagram-icon">Instagram</title>-->
+<!--&lt;!&ndash;              <path class="button&#45;&#45;svg__border" fill="#E5E5E5" d="M23 3c11.028 0 20 8.972 20 20s-8.972 20-20 20S3 34.028 3 23 11.972 3 23 3m0-2C10.85 1 1 10.85 1 23s9.85 22 22 22 22-9.85 22-22S35.15 1 23 1z"/>&ndash;&gt;-->
+<!--              <path fill="#5E6C89" d="M29.76 29.03v-7.373h-1.537c.152.48.23.975.23 1.49 0 .958-.243 1.838-.73 2.647-.485.807-1.146 1.447-1.98 1.918-.834.47-1.744.705-2.73.705-1.495 0-2.773-.514-3.835-1.543-1.062-1.027-1.593-2.27-1.593-3.726 0-.517.076-1.013.228-1.49H16.21v7.373c0 .2.065.37.2.5.13.14.296.2.494.2H29.07c.188 0 .352-.06.488-.2s.202-.3.202-.49zm-3.233-6.064c0-.94-.343-1.743-1.03-2.406-.686-.664-1.515-.996-2.486-.996-.96 0-1.78.332-2.47.996-.68.663-1.03 1.466-1.03 2.406 0 .942.35 1.743 1.03 2.407s1.51.996 2.48.996c.975 0 1.8-.34 2.49-1s1.03-1.47 1.03-2.41zm3.233-4.097v-1.88c0-.22-.076-.4-.23-.56-.15-.158-.336-.235-.556-.235h-1.98c-.22 0-.406.08-.558.233-.15.155-.228.34-.228.552v1.876c0 .22.076.404.228.556s.337.23.558.23h1.98c.22 0 .406-.078.557-.23.16-.15.23-.338.23-.558zm1.98-2.37v12.99c0 .61-.22 1.14-.66 1.58-.44.44-.967.66-1.582.66H16.502c-.614 0-1.142-.22-1.582-.66-.44-.44-.66-.97-.66-1.586V16.5c0-.614.22-1.142.66-1.582.44-.44.967-.66 1.582-.66h12.996c.615 0 1.14.22 1.582.66.44.44.66.967.66 1.58z"/>-->
+<!--            </svg>-->
+            <i class="ti-instagram"></i>
+          </a>
+        </div>
+
+        <div class="circle">
+          <a class="icon-lightbulb" href="https://www.youtube.com/channel/UCYC38Wwv1IsozuymZitUKrw">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46" role="img" aria-labelledby="youtube-icon">-->
+<!--              <title id="youtube-icon">YouTube</title>-->
+<!--&lt;!&ndash;              <path class="button&#45;&#45;svg__border" fill="#E5E5E5" d="M23 3c11.028 0 20 8.972 20 20s-8.972 20-20 20S3 34.028 3 23 11.972 3 23 3m0-2C10.85 1 1 10.85 1 23s9.85 22 22 22 22-9.85 22-22S35.15 1 23 1z"/>&ndash;&gt;-->
+<!--              <path fill="#E52E28" d="M27.68 23c0-.3-.12-.52-.364-.657l-6.24-3.9c-.253-.163-.517-.172-.793-.025-.27.147-.402.374-.402.683v7.803c0 .31.136.537.404.682.13.067.256.1.378.1.164 0 .3-.042.416-.122l6.24-3.9c.243-.14.365-.36.365-.66zm6.242 0c0 .78-.004 1.39-.012 1.83-.008.438-.043.993-.104 1.662-.06.672-.15 1.27-.274 1.8-.13.592-.41 1.092-.84 1.5-.43.405-.935.64-1.512.705-1.804.203-4.53.303-8.18.303-3.65 0-6.375-.1-8.18-.304-.576-.064-1.082-.3-1.517-.706-.435-.407-.717-.907-.847-1.5-.114-.527-.2-1.127-.263-1.8-.06-.668-.095-1.223-.103-1.662-.008-.438-.012-1.05-.012-1.828 0-.78.004-1.39.012-1.828.008-.44.042-.995.103-1.665.062-.67.152-1.27.274-1.797.13-.593.41-1.093.84-1.5.432-.407.936-.642 1.513-.707 1.804-.203 4.53-.305 8.18-.305 3.648 0 6.375.102 8.18.305.576.065 1.08.3 1.516.707.436.406.718.906.85 1.5.112.528.2 1.127.26 1.797.062.67.097 1.226.104 1.665.008.438.012 1.048.012 1.83z"/>-->
+<!--            </svg>-->
+            <i class="ti-youtube"></i>
+          </a>
+        </div>
+
+      </div> <!-- Icons -->
+    </div> <!-- Details__inner -->
+
+    <div class="ideas">
+      <h3 class="creative">University's history</h3>
+
+      <div class="creative__inner">
+<!--        <p class="creative__text1">At <span class="creative__inner__blue">vero</span> eos et accusamus et iusto odio dignissimos <span class="creative__inner__bold">ducimus</span> qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>-->
+        <p class="creative__text1">Lviv Polytechnic National University is the <span class="creative__inner__blue">oldest</span> technical higher educational institution in Ukraine and East Europe</p>
+
+        <p class="creative__text2">It was <span class="creative__inner__blue">founded</span> in 1816. University consists of 17 institutes, more than 100 departments; autonomous, additional and general subdivisions. For a long time it was believed that the origin of Lviv Polytechnic National University dates back to <span class="creative__inner__blue">1844</span>, when the Austrian government formed the Technical Academy in Lviv.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="featured" id="featured" #featured>
+  <div class="container">
+    <h3 class="featured__title">Inventory System</h3>
+
+    <div class="featured__subtitle">On this site you can see your currently available computers in your study room!</div>
+  </div>
+</div>
+
+
+<!-- Portfolio -->
+
+<div class="works">
+  <div class="works__inner">
+    <div class="works__item">
+      <img class="works__img" src="../../assets/galler1.jpg" alt="">
+    </div>
+
+    <div class="works__item">
+      <img class="works__img" src="../../assets/gallery2.jpg" alt="">
+    </div>
+
+    <div class="works__item">
+      <img class="works__img" src="../../assets/gallery3.jpg" alt="">
+    </div>
+
+  </div> <!-- Works__inner -->
+
+  <div class="works__footer">
+    <img class="works__footer__img" src="css/img/works/Layer4.jpg" alt="">
+
+    <div class="works__footer__container">
+      <div class="works__footer__content">Currently working <i class="creative__inner__bold">everyday</i> from <time>08:00</time> till <time>22:00</time> </div>
+    </div> <!-- Works__footer__container -->
+  </div> <!-- Works__footer -->
+</div> <!-- Works -->
+<div #technology class="table" id="prices" #prices>
+  <h1 class="menu">Prices List</h1>
+  <div class="tables">
+    <div class="table1">
+      <table class="content-table">
+        <thead class="head1">
+        <tr>
+          <th>Video Card</th>
+          <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>AMD Radeon R9</td>
+          <td>4 990₴</td>
+        </tr>
+        <tr class="active-row">
+          <td>Huanan Ziway Radeon R9</td>
+          <td>4 950₴</td>
+        </tr>
+        <tr>
+          <td>ASUS GeForce GTX1650</td>
+          <td>7 061₴</td>
+        </tr>
+        <tr>
+          <td>AFOX PCI-Ex Radeon</td>
+          <td>1 679₴</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table1">
+      <table class="content-table">
+        <thead class="head2">
+        <tr>
+          <th>CPU</th>
+          <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Intel Core i5-11400F</td>
+          <td>5 564₴</td>
+        </tr>
+        <tr>
+          <td>Intel Core i3-10100F</td>
+          <td>2 873₴</td>
+        </tr>
+        <tr class="active-row">
+          <td>AMD Ryzen 3 1200</td>
+          <td>2 699₴</td>
+        </tr>
+        <tr>
+          <td>AMD Ryzen 5</td>
+          <td>7 874₴</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table1">
+      <table class="content-table">
+        <thead class="head3">
+        <tr>
+          <th>RAM</th>
+          <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>8GB</td>
+          <td>1 354₴</td>
+        </tr>
+        <tr>
+          <td>16GB</td>
+          <td>2 792₴</td>
+        </tr>
+        <tr>
+          <td>32GB</td>
+          <td>7 325₴</td>
+        </tr>
+        <tr class="active-row">
+          <td>64GB</td>
+          <td>13 104₴</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+<div #computers>
+  <app-card></app-card>
+</div>
+
+
+
+
+<div class="details">
+  <div class="contact">
+    <h4 class="details__title">Contact Us</h4>
+    <div class="forms">
+      <input type=email placeholder="Enter your email" class="nameForm">
+      <textarea placeholder="Please, write down any of yours questions" class="nameForm"></textarea>
+    </div>
+  </div>
+</div>
+
+
+
+<footer>
+  <div class="footer__text">
+    <div class="footer__title">LvivPolytechnic</div>
+    <div class="footer__copyrights">Copyright 2022. All rights Reserved</div>
+  </div>
+</footer>
+
+
+
+
+</body>

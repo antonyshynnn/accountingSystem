@@ -1,0 +1,384 @@
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Inventory System</a>
+    <input (ngModelChange)="searchComputers(key.value)" #key="ngModel" ngModel class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" (click)="logout()">Sign out</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid" id="main-container">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          Admin Menu
+        </h5>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <button (click)="navToHome()" class="btn btn-outline-primary mb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              Home <span class="sr-only">(current)</span>
+            </button>
+          </li>
+          <li *ngIf="isAdmin" class="nav-item">
+            <button  (click)="onOpenModal(blankPc, blankUser, 'addUser')" class="btn btn-outline-primary mb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Add User
+            </button>
+          </li>
+          <li class="nav-item">
+            <button (click)="onOpenModal(blankPc, blankUser, 'addComputer')" class="btn btn-outline-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              Add Computer
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+      <!--      <canvas class="my-4 chartjs-render-monitor" id="myChart" width="283" height="118" style="display: block; height: 95px; width: 227px;"></canvas>-->
+      <h2>Computers List</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Cpu</th>
+            <th>Memory</th>
+            <th>Motherboard</th>
+            <th>Cooling System</th>
+            <th>Operating System</th>
+            <th>Drive</th>
+            <th>Storage</th>
+            <th>Price</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Room</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let computer of computers">
+            <td>{{computer.id}}</td>
+            <td>{{computer.name}}</td>
+            <td>{{computer.type}}</td>
+            <td>{{computer.cpu}}</td>
+            <td>{{computer.memory}}</td>
+            <td>{{computer.motherboard}}</td>
+            <td>{{computer.coolingSystem}}</td>
+            <td>{{computer.operatingSystem}}</td>
+            <td>{{computer.drive}}</td>
+            <td>{{computer.driveStorage}}GB</td>
+            <td>{{computer.price}}</td>
+            <td class="text-center">{{computer.status}}</td>
+            <td class="text-center">{{computer.roomId}}</td>
+            <td ><a *ngIf="computer.status === 'BROKEN'" class="btn btn-outline-info btn-sm" (click)="onOpenModal(computer, blankUser, 'reportMessage')">Report</a></td>
+            <td ><a class="btn btn-outline-primary btn-sm" (click)="onOpenModal(computer, blankUser, 'editComputer')">Update</a></td>
+            <td ><a class="btn btn-outline-danger btn-sm" (click)="onOpenModal(computer, blankUser, 'delete')">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+
+
+<!-- Add Computer Modal -->
+<div class="modal fade" id="addComputerModal" tabindex="-1" role="dialog" aria-labelledby="addComputerModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Computer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addComputerForm="ngForm" (ngSubmit)="onAddComputer(addComputerForm)">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="computerType">Type</label>
+            <select ngModel id="computerType" class="form-control" name="type" required>
+              <option>PC</option>
+              <option>LAPTOP</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cpu">CPU</label>
+            <input type="text" ngModel name="cpu" class="form-control" id="cpu" placeholder="CPU" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="memory">Memory</label>
+            <input type="text" ngModel name="memory" class="form-control" id="memory" placeholder="RAM" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="motherboard">Motherboard</label>
+            <input type="text" ngModel name="motherboard" class="form-control" id="motherboard" placeholder="Motherboard" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="coolingSystem">Cooling System</label>
+            <input type="text" ngModel name="coolingSystem" class="form-control" id="coolingSystem" placeholder="Cooling System" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="operatingSystem">Operating System</label>
+            <input type="text" ngModel name="operatingSystem" class="form-control" id="operatingSystem" placeholder="Operating System" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="drive">Drive Type</label>
+            <select ngModel id="drive" class="form-control" name="drive" required>
+              <option>HDD</option>
+              <option>SSD</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="driveStorage">Drive Storage</label>
+            <input type="text" ngModel name="driveStorage" class="form-control" id="driveStorage" placeholder="Drive Storage" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="imageUrl">Image URL</label>
+            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required autocomplete="off">
+          </div>
+
+
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" ngModel name="price" class="form-control" id="price" placeholder="Price" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="roomId">Study Room ID</label>
+            <input type="text" ngModel name="roomId" class="form-control" id="roomId" placeholder="Study Room ID" required autocomplete="off">
+          </div>
+
+          <input type="hidden" ngModel="OK" name="status" class="form-control" id="status" placeholder="Id">
+
+
+          <div class="modal-footer">
+            <button type="button" id="add-computer-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addComputerForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Computer Modal -->
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateEmployeeModalLabel">Edit {{editComputer?.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editComputerForm="ngForm" (ngSubmit)="onUpdateComputer(editComputerForm.value)">
+          <input type="hidden" ngModel="{{editComputer?.id}}" name="id" class="form-control" id="id" placeholder="Id">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ngModel="{{editComputer?.name}}" name="name" class="form-control" id="#name" placeholder="Name" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select ngModel="{{editComputer?.type}}" id="type" class="form-control" name="type" required>
+              <option>PC</option>
+              <option>LAPTOP</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cpu">CPU</label>
+            <input type="text" ngModel="{{editComputer?.cpu}}" name="cpu" class="form-control" id="editcpu" placeholder="CPU" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="memory">Memory</label>
+            <input type="text" ngModel="{{editComputer?.memory}}" name="memory" class="form-control" id="editmemory" placeholder="RAM" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="motherboard">Motherboard</label>
+            <input type="text" ngModel="{{editComputer?.motherboard}}" name="motherboard" class="form-control" id="editmotherboard" placeholder="Motherboard" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="coolingSystem">Cooling System</label>
+            <input type="text" ngModel="{{editComputer?.coolingSystem}}" name="coolingSystem" class="form-control" id="editcoolingSystem" placeholder="Cooling System" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="operatingSystem">Operating System</label>
+            <input type="text" ngModel="{{editComputer?.operatingSystem}}" name="operatingSystem" class="form-control" id="editoperatingSystem" placeholder="Operating System" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="drive">Drive Type</label>
+            <select ngModel="{{editComputer?.drive}}" id="editdrive" class="form-control" name="drive" required>
+              <option>HDD</option>
+              <option>SSD</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="driveStorage">Drive Storage</label>
+            <input type="text" ngModel="{{editComputer?.driveStorage}}" name="driveStorage" class="form-control" id="#driveStorage" placeholder="Drive Storage" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="imageUrl">Image URL</label>
+            <input type="text" ngModel="{{editComputer?.imageUrl}}" name="imageUrl" class="form-control" id="editimageUrl" placeholder="Image URL" required autocomplete="off">
+          </div>
+
+
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" ngModel="{{editComputer?.price}}" name="price" class="form-control" id="editprice" placeholder="Price" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="roomId">Study Room ID</label>
+            <input type="text" ngModel="{{ editComputer?.roomId }}" name="roomId" class="form-control" id="editroomId" placeholder="Study Room ID" required autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select ngModel="{{editComputer?.status}}" id="#status" class="form-control" name="status" required>
+              <option>OK</option>
+              <option>BROKEN</option>
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="editComp" data-dismiss="modal" class="btn btn-secondary">Close</button>
+            <button (click)="onUpdateComputer(editComputerForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addUserForm="ngForm" (ngSubmit)="onAddUser(addUserForm)">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="type" ngModel name="password" class="form-control" id="password" placeholder="Password" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" ngModel name="email" class="form-control" id="email" placeholder="Email" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="roomId">Study Room</label>
+            <input type="text" ngModel name="roomId" class="form-control" id="#roomId" placeholder="Study Room" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="role">Role</label>
+            <select ngModel id="role" class="form-control" name="role" required>
+              <option selected>USER</option>
+              <option>MANAGER</option>
+              <option>ADMIN</option>
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="add-user-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addUserForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+          <div class="alert alert-warning" *ngIf="addUserForm.submitted && isSignUpFailed">
+            Signup failed!<br />{{ errorMessage }}
+          </div>
+        </form>
+        <div class="alert alert-success" *ngIf="isSuccessful">
+          Your registration is successful!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Report Message Modal -->
+<div class="modal fade" id="reportMessageModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reportMessageTitle">Report about computer {{editComputer?.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="form-group">
+            <textarea rows="12" readonly ngModel="{{editComputer?.reportMessage}}" name="reportMessage" class="form-control" id="reportMessage" placeholder="Describe the situation" required autocomplete="off">
+            </textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Delete Computer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete {{deleteComputer?.name}}?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button (click)="onDeleteComputer(deleteComputer.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>

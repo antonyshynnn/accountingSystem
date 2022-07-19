@@ -1,0 +1,56 @@
+<div class="container mt-5" id="main-container">
+  <h1 class="text-center mb-5">Available computers in Study Room #{{computers[0].roomId}}</h1>
+  <div class="row align-content-start justify-content-between my-flex-card">
+
+    <div *ngFor="let computer of computers" class="col-md-3 col-xl-2 mr-5">
+      <div class="card text-black-50" style="width: 18rem;">
+        <img class="card-img-top" src="{{computer.imageUrl}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{computer.name}}</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>CPU : {{computer?.cpu}}</li>
+            <li class="list-group-item"><i class="fa fa-color float-right"></i>Motherboard : {{computer?.motherboard}}</li>
+            <li class="list-group-item"><i class="fa fa-money float-right"></i>Operating System : {{computer?.operatingSystem}}</li>
+            <li class="list-group-item"><i class="fa fa-money float-right"></i>Drive : {{computer?.drive}}</li>
+            <li class="list-group-item"><i class="fa fa-money float-right"></i>Storage : {{computer?.driveStorage}}</li>
+            <li class="list-group-item"><i class="fa fa-money float-right"></i>RAM : {{computer?.memory}}</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <a *ngIf="computer.status === 'OK'" (click)="onOpenModal(computer)" class="btn btn-outline-danger mt-2">Report a problem</a>
+          <a *ngIf="computer.status === 'BROKEN'" class="btn btn-outline-dark disabled mt-2">Report a problem</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Computer Message Modal -->
+<div class="modal fade" id="updateReport" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateEmployeeModalLabel">Report computer {{editComputer?.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #updateReport="ngForm" (ngSubmit)="onUpdateReport(message.value)">
+
+          <div class="form-group">
+            <label for="reportMessage">What happened with the computer?</label>
+            <textarea #message rows="6" ngModel="{{ editComputer?.reportMessage }}" name="reportMessage" class="form-control" id="reportMessage" placeholder="Describe the situation" required autocomplete="off">
+            </textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+            <button (click)="onUpdateReport(message.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

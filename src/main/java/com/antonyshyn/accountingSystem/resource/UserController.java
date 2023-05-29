@@ -1,6 +1,7 @@
 package com.antonyshyn.accountingSystem.resource;
 
 import com.antonyshyn.accountingSystem.entity.UserEntity;
+import com.antonyshyn.accountingSystem.payload.request.SignupRequest;
 import com.antonyshyn.accountingSystem.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class UserController {
     }
 
 
-    @PostMapping("/add")
+    @PostMapping()
     @PreAuthorize("hasAuthority('user:write')")
-    public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity user) {
+    public ResponseEntity<UserEntity> addUser(@RequestBody SignupRequest user) {
         UserEntity newUser = userService.saveUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }

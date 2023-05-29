@@ -12,7 +12,6 @@ public enum UserRoles {
     MANAGER(Set.of(Permission.USER_READ, Permission.USER_WRITE)),
     ADMIN(Set.of(Permission.USER_READ, Permission.USER_WRITE, Permission.USER_CREATE));
 
-
     private final Set<Permission> userPermissions;
 
     UserRoles(Set<Permission> userPermissions) {

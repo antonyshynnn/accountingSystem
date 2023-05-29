@@ -18,14 +18,11 @@ public class SecureUser implements UserDetails {
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive;
 
-    private final Long id;
-
-    public SecureUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive, Long id) {
+    public SecureUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
         this.isActive = isActive;
-        this.id = id;
     }
 
     @Override
@@ -66,10 +63,6 @@ public class SecureUser implements UserDetails {
     public static SecureUser fromUser(UserEntity user) {
         return new SecureUser(
                 user.getUsername(), user.getPassword(),
-                user.getUserRole().getAuthorities(), true, user.getStudyRoomId());
-    }
-
-    public Long getId() {
-        return id;
+                user.getUserRole().getAuthorities(), true);
     }
 }

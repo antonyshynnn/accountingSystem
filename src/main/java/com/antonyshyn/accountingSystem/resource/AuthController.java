@@ -55,7 +55,7 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         response.setHeader("Authorization", "Bearer " + jwt);
-        return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getId(), authorities) );
+        return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), authorities) );
     }
 
     @PostMapping("/signup")
@@ -71,17 +71,8 @@ public class AuthController {
                 signUpRequest.getUsername(),
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getEmail(),
-                signUpRequest.getRoomId(),
-                signUpRequest.getRole()
+                UserRoles.USER
         );
-
-/*        {
-                "username": "test",
-                "password": "123",
-                "email": "test@123",
-                "firstName": "Alan",
-                "lastName": "Po"
-        }*/
 
         userRepository.save(user);
 
